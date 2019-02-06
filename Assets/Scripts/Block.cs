@@ -17,12 +17,17 @@ public class Block : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        DestroyBlock(collision);
+    }
+
+    private void DestroyBlock(Collision2D collision)
+    {
         if (collision.gameObject.name == "Ball")
         {
             AudioClip clip = explosions[UnityEngine.Random.Range(0, explosions.Length)];
             AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
             Destroy(gameObject);
+            level.BlockDestroyed();
         }
-        
-    } 
+    }
 }
