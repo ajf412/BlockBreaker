@@ -128,3 +128,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 72cb8b06408ce6b49be25dd0d67d0e1e, type: 3}
   - {fileID: 8300000, guid: a7caaf8bdb969f64eb91a9bf252fdb8b, type: 3}
   - {fileID: 8300000, guid: f6fe538068ae0074588729ef43e5cd28, type: 3}
+  blockDestroyVFX: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 3}

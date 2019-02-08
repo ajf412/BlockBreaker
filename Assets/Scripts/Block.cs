@@ -6,14 +6,16 @@ public class Block : MonoBehaviour
 {
     // Configuration Parameters
     [SerializeField] AudioClip[] explosions;
+    [SerializeField] GameObject blockDestroyVFX;
+
     Level level;
-    GameStatus gameStatus;
+    GameSession gameStatus;
 
     private void Start()
     {
         level = FindObjectOfType<Level>();
         level.CountBreakableBlocks();
-        gameStatus = FindObjectOfType<GameStatus>();
+        gameStatus = FindObjectOfType<GameSession>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,10 +28,22 @@ public class Block : MonoBehaviour
         if (collision.gameObject.name == "Ball")
         {
             gameStatus.AddToScore();
-            AudioClip clip = explosions[UnityEngine.Random.Range(0, explosions.Length)];
-            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+            PlayBlockDestroySFX();
+            TriggerVFX();
             Destroy(gameObject);
             level.BlockDestroyed();
         }
+    }
+
+    private void PlayBlockDestroySFX()
+    {
+        AudioClip clip = explosions[UnityEngine.Random.Range(0, explosions.Length)];
+        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+    }
+
+    private void TriggerVFX()
+    {
+        GameObject shrapnel = Instantiate(blockDestroyVFX, transform.position, transform.rotation);
+        Destroy(shrapnel, 1);
     }
 }
